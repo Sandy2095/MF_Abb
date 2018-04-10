@@ -1,0 +1,78 @@
+
+Flow "Create Incident Prod" launched in HP Operations Orchestration.
+See <http://uschvwabvi013.abbvienet.com:8080/PAS/app?service=RCLinkService/ReportLinkDispatch&sp=SINDIVIDUAL_REPAIR_LEVEL&sp=Sc560fa6b-fa47-4c41-98fc-cddd1b841f01&sp=l0&sp=l1136404564>
+
+Application Process Monitoring
+------------------------------
+title -> 
+ALARM: MAXRUNALARAM
+Application Process 
+Autosys Job
+current state is
+Memory utilization
+Page File usafe is hig
+remote ISOtrin
+sitescope ping event
+failed multipled items
+
+AutoSys RBA
+---------------------
+Applcation - AUTOSYS
+
+Autosys_Job
+------------------------
+LifeCycle State -> open,WIP
+Appliation -> CA Workload Automation AutoSys Edition (WAAE)
+
+
+Event Tickets to SNow for Heartbeat
+-------------------------------------
+Tile -> OM Heartbeat is Late or Broken.
+
+Filesystem Events
+-----------------
+custom Attributes -> ForwardToTroubleTicket-> True
+
+NNMi Events
+-----------------------
+Tile ->
+NeighbourState 1 (down) & OSPF Rate Correlation
+OSPF Rate Correlation & state 1 (down)
+Rate Correlation for exterme
+Wing trap access point unadopted
+
+SolTraq
+----------
+Sev -> critical  & Application -> SolTRAQs
+
+Unix Filesystem Events
+------------------------
+Tiel -> 
+Disk Space Utlilization
+File System
+
+
+Time Base Automation Rule
+======================================
+Citrix Print Manager Service
+---------------------------
+5 Minutes
+Sev -> Warning & Lifecycle -> Open & Tile -> Citrix Print Manager Service
+
+High output & High input
+--------------------------
+30 min
+(Time Recevied -> old 30 mins & Title -> Cleared ) & tile -> high output utilization on interface
+(Time Recevied -> old 30 mins & Title -> Cleared ) & tile -> high input utilization on interface
+
+Normal Alert Closure
+----------------------
+1 min 
+Sev - normal
+pri - all
+lifecyel -all
+modify -> event to close 
+
+Open ticket to Snow after unresolved for 15 min
+------------------------------------------------------------
+15 mins

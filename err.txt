@@ -1,0 +1,47 @@
+{exception=java.lang.IllegalArgumentException: the value 'http://localhost:8080/oo/rest/latest/executions?endedBefore=1491303183073&maxAmount=1000&purgeItems=flowInputs,flowOutputs,steps&statuses=COMPLETED,COMPLETED_RESOLVED,COMPLETED_DIAGNOSED,COMPLETED_ERROR, COMPLETED_NO_ACTION_TAKEN,SYSTEM_FAILURE,CANCELED' is not a valid URI
+	at io.cloudslang.content.httpclient.build.URIBuilder.buildURI(URIBuilder.java:64)
+	at io.cloudslang.content.httpclient.ScoreHttpClient.buildHttpComponents(ScoreHttpClient.java:125)
+	at io.cloudslang.content.httpclient.ScoreHttpClient.execute(ScoreHttpClient.java:88)
+	at com.hp.oo.content.oo.services.PurgeExecutionsService.purgeExecution(PurgeExecutionsService.java:65)
+	at com.hp.oo.content.oo.actions.database.PurgeExecutions.purgeExecutionSummary(PurgeExecutions.java:93)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at com.hp.oo.sdk.plugins.abstracts.BaseActionPlugin.execute(BaseActionPlugin.java:53)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at com.hp.oo.maven.PluginAdapterImpl.executePlugin(PluginAdapterImpl.java:328)
+	at com.hp.oo.maven.PluginAdapterImpl.execute(PluginAdapterImpl.java:248)
+	at com.hp.oo.execution.control.actions.contentexecution.ContentExecutionActions.executeContentAction(ContentExecutionActions.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at io.cloudslang.worker.execution.reflection.ReflectionAdapterImpl.executeControlAction(ReflectionAdapterImpl.java:62)
+	at io.cloudslang.worker.execution.services.ExecutionServiceImpl.executeStep(ExecutionServiceImpl.java:326)
+	at io.cloudslang.worker.execution.services.ExecutionServiceImpl.execute(ExecutionServiceImpl.java:80)
+	at io.cloudslang.worker.management.services.SimpleExecutionRunnable.executeRegularStep(SimpleExecutionRunnable.java:167)
+	at io.cloudslang.worker.management.services.SimpleExecutionRunnable.run(SimpleExecutionRunnable.java:120)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at io.cloudslang.worker.management.services.WorkerThreadFactory$1.run(WorkerThreadFactory.java:33)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.URISyntaxException: Illegal character in query at index 203: http://localhost:8080/oo/rest/latest/executions?endedBefore=1491303183073&maxAmount=1000&purgeItems=flowInputs,flowOutputs,steps&statuses=COMPLETED,COMPLETED_RESOLVED,COMPLETED_DIAGNOSED,COMPLETED_ERROR, COMPLETED_NO_ACTION_TAKEN,SYSTEM_FAILURE,CANCELED
+	at java.net.URI$Parser.fail(URI.java:2848)
+	at java.net.URI$Parser.checkChars(URI.java:3021)
+	at java.net.URI$Parser.parseHierarchical(URI.java:3111)
+	at java.net.URI$Parser.parse(URI.java:3053)
+	at java.net.URI.<init>(URI.java:588)
+	at org.apache.http.client.utils.URIBuilder.<init>(URIBuilder.java:81)
+	at io.cloudslang.content.httpclient.build.URIBuilder.buildURI(URIBuilder.java:62)
+	... 31 more
+;returnCode=-1;returnResult=the value 'http://localhost:8080/oo/rest/latest/executions?endedBefore=1491303183073&maxAmount=1000&purgeItems=flowInputs,flowOutputs,steps&statuses=COMPLETED,COMPLETED_RESOLVED,COMPLETED_DIAGNOSED,COMPLETED_ERROR, COMPLETED_NO_ACTION_TAKEN,SYSTEM_FAILURE,CANCELED' is not a valid URI;Result=the value 'http://localhost:8080/oo/rest/latest/executions?endedBefore=1491303183073&maxAmount=1000&purgeItems=flowInputs,flowOutputs,steps&statuses=COMPLETED,COMPLETED_RESOLVED,COMPLETED_DIAGNOSED,COMPLETED_ERROR, COMPLETED_NO_ACTION_TAKEN,SYSTEM_FAILURE,CANCELED' is not a valid URI;}
+
+
+
+http://uschvwabvi013.abbvienet.com:8080/oo/rest/latest/executions/d74de0d7-afee-4cfc-a82c-22775f36e44d

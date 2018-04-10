@@ -1,0 +1,175 @@
+#!/bin/bash
+###############################################################################
+#
+# File:         fsmon_linux.sh
+#
+# Description:  Monitor inode utilization of a File System on Linux
+#
+###############################################################################
+
+################################################################################
+# Functions
+################################################################################
+OPCMON="/opt/OV/bin/OpC/opcmon"
+OPCMSG="/opt/OV/bin/OpC/opcmsg"
+CNTL="/tmp/pooja/cntl/file"
+FSTAB="/etc/fstab"
+APPLICATION="FileSystem"
+MSGRP=OS
+
+mark=10
+loop=/tmp/vpo-df-mon
+
+message ()
+{
+        $OPCMSG s=$SEVERITY a=$APPLICATION msg_grp=$MSGRP o=$OBJECT msg_text="$MESSAGE"
+
+}
+
+threshold()
+
+{
+while read warn minor major crit inode file
+
+  do
+      if [ $p -ge $crit ]
+        then
+           ###
+           ### Critical message
+           ###
+           SEVERITY=critical
+           if [[ `ls -ld $file | awk '{print $4}'` = mqm* ]]
+           then
+                APPLICATION="FileSystem"
+                MESSAGE="File System $file is currently $p% full. Please contact Software Engineering WebSphere On-Call."
+           else
+                APPLICATION="FileSystem"
+                MESSAGE="File System $file is currently $p% full."
+           fi
+ OBJECT=$file
+           message
+        else
+
+    if [ $p -ge $major -a $p -lt $crit ]
+        then
+           ###
+           ### Major message
+           ###
+           SEVERITY=Major
+           if [[ `ls -ld $file | awk '{print $4}'` = mqm* ]]
+           then
+                APPLICATION="FileSystem"
+                MESSAGE="File System $file is currently $p% full. Please contact Software Engineering WebSphere On-Call."
+           else
+                APPLICATION="FileSystem"
+                MESSAGE="File System $file is currently $p% full."
+           fi
+ OBJECT=$file
+           message
+        else
+
+    if [ $p -ge $minor -a $p -lt $major ]
+        then
+           ###
+           ### Minor message
+           ###
+           SEVERITY=Minor
+           if [[ `ls -ld $file | awk '{print $4}'` = mqm* ]]
+           then
+                APPLICATION="FileSystem"
+                MESSAGE="File System $file is currently $p% full. Please contact Software Engineering WebSphere On-Call."
+           else
+                APPLICATION="FileSystem"
+                MESSAGE="File System $file is currently $p% full."
+           fi
+ OBJECT=$file
+           message
+        else
+
+        if [ $p -gt $warn -a $p -lt $minor ]
+        then
+           ###
+           ### Warning message
+           ###
+           SEVERITY=warning
+           if [[ `ls -ld $file | awk '{print $4}'` = mqm* ]]
+           then
+                APPLICATION="FileSystem"
+                MESSAGE="File System $file is currently $p% full. Please contact Software Engineering WebSphere On-Call."
+           else
+                APPLICATION="FileSystem"
+                MESSAGE="File System $file is currently $p% full."
+                OBJECT=$file
+           fi
+
+           message
+
+         fi
+        fi
+       fi
+      fi
+   done
+
+}
+
+#setup_system_info
+#df -i | cut -c40-200 | tail -n +2 | doit
+#df -i | tail -n +2 | doit
+
+# Get listing. Accomodate long device names.
+df -kh | egrep -v "Filesystem            Size  Used Avail Use% Mounted on " | awk '{ if (NF==5) print $4 "\t" $5 } { if (NF==6) print $5 "\t" $6}'|sed 's/%//g' | while read p FS
+        do
+        if [ $p -gt $mark ]
+        then
+                        # We got problem here.
+                        egrep " $FS$" $CNTL |threshold
+                        # " $FS " . Those spaces make you quite intelligent and save from picking similar Filesystems.
+        else
+                        # Everything cool.
+                        : # Do nothing
+        fi
+        # JR - Log all FS seen to compare against config
+        echo $FS$ >> /tmp/fsmon_list
+        # End JR
+
+        done # Close the loop.
+
+#JR see if any FS are not here
+        grep -vf /tmp/fsmon_list $CNTL | awk '{print $4}' | while read FS
+        do
+
+           ###
+           ### Critical message
+           ###
+           SEVERITY=critical
+           APPLICATION="FileSystem"
+           MESSAGE="File System $FS is in $CNTL but not mounted."
+           OBJECT=$FS
+#           message
+
+        done
+        # Check against fstab
+        cat $FSTAB | egrep -v "^$|^#" |  awk '{ print $2}' | egrep -v "^swap|^efi|^/dev|^/sys|^/proc|/media|^/run|none" > /tmp/fstab_list
+        grep -vf /tmp/fsmon_list /tmp/fstab_list | while read FS
+        do
+           MYFS="$FS $MYFS"
+           echo $MYFS >/tmp/myfs
+        done
+        #MYFS=`cat /tmp/myfs`
+        #echo $MYFS
+        if [[ -f /tmp/myfs ]]
+        then
+           SEVERITY=critical
+           APPLICATION="FileSystem"
+           OBJECT=fsmon
+           MESSAGE="File System `cat /tmp/myfs` in /etc/fstab but not mounted."
+           message
+           rm -f /tmp/myfs
+        fi
+        # JR - remove fs list for next time.
+        rm -f /tmp/fsmon_list
+        # End JR
+
+date > $loop
+
+exit 0

@@ -1,0 +1,23 @@
+IP Mismatch --> nslookup
+certifcatice not recevied -->ovcert -certreq , /opt/OV/bin/OpC/install/opcactivate.sh  -srv 10.72.253.26 –cert_srv 10.72.253.26 -f
+port issue 
+after enroll check certificate 
+
+
+Node_Addition:
+opcnode -assign_node node_name=wa02702p.abbvienet.com net_type=NETWORK_IP pol_group=windows group_name=windows layout_group=AbbVie-Windows
+opcnode -assign_node node_name=uq00354d.abbvienet.com net_type=NETWORK_IP pol_group=AbbVie-Linux group_name=linux layout_group=AbbVie-Linux 
+opcnode -assign_node node_name=ppdlcweb01.abbvienet.com net_type=NETWORK_IP pol_group=AbbVie-Solaris group_name=solaris layout_group=AbbVie-Solaris 
+opcnode -assign_node node_name=uv02112p.abbvienet.com net_type=NETWORK_IP pol_group=AbbVie-HPUX group_name=hpux layout_group=AbbVie-HPUX 
+
+
+Windows Path --> 
+Open source Path --> 
+
+
+http://www.softpanorama.info/Admin/HP_operations_manager/Policies/Operations/creating_and_uploading_policies.shtml
+
+http://www.softpanorama.net/Admin/HP_operations_manager/Policies/index.shtml
+
+
+./opcactivate.sh  -srv 10.72.253.26 –cert_srv 10.72.253.26 -f
